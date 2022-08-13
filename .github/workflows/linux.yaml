@@ -1,0 +1,29 @@
+name: Build windows
+
+on:
+  push:
+    tags:        
+      - build.*
+
+jobs:
+  build-win:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: "flutter/devtools"
+          ref: "v2.16.0"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.3.0-0.0.pre"
+          channel: "master"
+      - run: sudo apt-get update -y && sudo apt-get install -y ninja-build libgtk-3-dev
+      - run: flutter config --enable-linux-desktop
+      - name: Build
+        working-directory: ./packages/devtools_app
+        run: "flutter create --platforms=linux . && flutter build linux"
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with: 
+          name: linux-release
+          path: ./packages/devtools_app/build/linux/release/bundle

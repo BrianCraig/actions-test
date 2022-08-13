@@ -1,0 +1,27 @@
+name: Build web
+
+on:
+  push:
+    tags:        
+      - build.*
+
+jobs:
+  build-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: "flutter/devtools"
+          ref: "v2.16.0"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.3.0-0.0.pre"
+          channel: "master"
+      - name: Build
+        working-directory: ./packages/devtools_app
+        run: "flutter build web --release"
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with: 
+          name: web-release
+          path: ./packages/devtools_app/build/web

@@ -1,0 +1,14 @@
+name: Build
+
+jobs:
+  build-win:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: "flutter/devtools"
+      - uses: subosito/flutter-action@v2
+      - run: flutter config --enable-windows-desktop
+      - name: Build
+        working-directory: ./packages/devtools_app
+        run: flutter build windows

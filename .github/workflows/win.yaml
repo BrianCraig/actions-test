@@ -20,7 +20,7 @@ jobs:
       - run: flutter config --enable-windows-desktop
       - name: Build
         working-directory: ./packages/devtools_app
-        run: "flutter create --platforms=windows . && flutter build --release windows"
+        run: "flutter create --platforms=windows . && flutter build windows"
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with: 

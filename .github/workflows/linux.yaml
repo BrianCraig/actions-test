@@ -21,7 +21,7 @@ jobs:
       - run: flutter config --enable-linux-desktop
       - name: Build
         working-directory: ./packages/devtools_app
-        run: "flutter create --platforms=linux . && flutter build linux"
+        run: "flutter create --platforms=linux . && flutter build linux --release"
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with: 

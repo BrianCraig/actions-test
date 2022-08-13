@@ -1,4 +1,4 @@
-name: Build windows
+name: Build linux
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - build.*
 
 jobs:
-  build-win:
+  build-linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

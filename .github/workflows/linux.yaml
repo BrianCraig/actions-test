@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with: 
           name: linux-release
-          path: ./packages/devtools_app/build/linux/release/bundle
+          path: ./packages/devtools_app/build/linux/x64/release/bundle

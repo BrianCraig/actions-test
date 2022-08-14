@@ -82,7 +82,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: windows-release
-          path: ./packages/devtools_app/build/windows/runner/Release
+          path: ./windows-release.zip
   
   release:
     runs-on: ubuntu-latest

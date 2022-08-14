@@ -23,7 +23,7 @@ jobs:
         working-directory: ./packages/devtools_app
         run: "flutter create --platforms=linux . && flutter build linux --release"
       - run: tar -cvzf linux-release.tar.gz -C ./packages/devtools_app/build/linux/x64/release/bundle .
-      - run: zip -j -r linux-release.zip ./packages/devtools_app/build/linux/x64/release/bundle
+      - run: cd ./packages/devtools_app/build/linux/x64/release/bundle && zip -r ../../../../../../../linux-release.zip .
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -50,7 +50,7 @@ jobs:
         working-directory: ./packages/devtools_app
         run: "flutter build web --release"
       - run: tar -cvzf web-release.tar.gz -C ./packages/devtools_app/build/web .
-      - run: zip -j -r web-release.zip ./packages/devtools_app/build/web
+      - run: cd ./packages/devtools_app/build/web && zip -r ../../../../web-release.zip .
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:

@@ -21,7 +21,7 @@ jobs:
           path: artifact2.txt
   upload:
     runs-on: ubuntu-latest
-    needs: [job1, job2]
+    needs: [first, second]
     steps:
       - uses: actions/download-artifact@master
         with:

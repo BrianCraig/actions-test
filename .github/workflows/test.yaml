@@ -9,7 +9,7 @@ jobs:
       - run: echo hello > artifact1.txt
       - uses: actions/upload-artifact@v3
         with:
-          name: firts
+          name: first
           path: artifact1.txt
   second:
     runs-on: ubuntu-latest

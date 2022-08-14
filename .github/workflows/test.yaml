@@ -12,7 +12,7 @@ jobs:
       - run: mkdir folder
       - run: echo hello > ./folder/artifact1.txt
       - run: echo hello > ./folder/artifact2.txt
-      - run: tar.exe -a -c -f win.zip folder
+      - run: tar.exe -a -c -C ./folder -f win.zip .
       - uses: actions/upload-artifact@v3
         with:
           name: first
@@ -23,8 +23,8 @@ jobs:
       - run: mkdir folder
       - run: echo world > ./folder/artifact1.txt
       - run: echo world > ./folder/artifact2.txt
-      - run: tar -cvzf second.tar.gz folder
-      - run: zip -r third.zip folder
+      - run: tar -cvzf second.tar.gz -C folder .
+      - run: zip -r third.zip -C folder .
       - uses: actions/upload-artifact@v3
         with:
           name: second

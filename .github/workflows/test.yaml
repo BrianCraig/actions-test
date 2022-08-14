@@ -35,8 +35,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: | 
-            - first
-            - second
+            - artifact1.txt
+            - artifact2.txt
 
 
           

@@ -24,7 +24,7 @@ jobs:
       - run: echo world > ./folder/artifact1.txt
       - run: echo world > ./folder/artifact2.txt
       - run: tar -cvzf second.tar.gz -C folder .
-      - run: zip -r third.zip -C folder .
+      - run: zip -j -r third.zip folder
       - uses: actions/upload-artifact@v3
         with:
           name: second

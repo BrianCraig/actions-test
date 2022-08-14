@@ -1,6 +1,9 @@
 name: Test
 
-on: push
+on:
+  push:
+    tags:
+      - test.*
 
 jobs:
   first:
@@ -35,8 +38,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: | 
-            - artifact1.txt
-            - artifact2.txt
+            ./artifact1.txt
+            ./artifact2.txt
 
 
           

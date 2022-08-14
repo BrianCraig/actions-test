@@ -22,11 +22,18 @@ jobs:
       - name: Build
         working-directory: ./packages/devtools_app
         run: "flutter create --platforms=linux . && flutter build linux --release"
+      - run: tar -cvzf linux-release.tar.gz -C ./packages/devtools_app/build/linux/x64/release/bundle .
+      - run: zip -j -r linux-release.zip ./packages/devtools_app/build/linux/x64/release/bundle
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: linux-release
-          path: ./packages/devtools_app/build/linux/x64/release/bundle
+          name: linux-release-targz
+          path: ./linux-release.tar.gz
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-release-zip
+          path: ./linux-release.zip
 
   build-web:
     runs-on: ubuntu-latest
@@ -42,11 +49,18 @@ jobs:
       - name: Build
         working-directory: ./packages/devtools_app
         run: "flutter build web --release"
+      - run: tar -cvzf web-release.tar.gz -C ./packages/devtools_app/build/web .
+      - run: zip -j -r web-release.zip ./packages/devtools_app/build/web
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: web-release
-          path: ./packages/devtools_app/build/web
+          name: web-release-targz
+          path: ./web-release.tar.gz
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-release-zip
+          path: ./web-release.zip
 
   build-windows:
     runs-on: windows-latest
@@ -63,6 +77,7 @@ jobs:
       - name: Build
         working-directory: ./packages/devtools_app
         run: "flutter create --platforms=windows . && flutter build windows"
+      - run: tar.exe -a -c -C ./packages/devtools_app/build/windows/runner/Release -f windows-release.zip .
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -75,10 +90,16 @@ jobs:
     steps:
       - uses: actions/download-artifact@master
         with:
-          name: linux-release
+          name: linux-release-targz
       - uses: actions/download-artifact@master
         with:
-          name: web-release
+          name: linux-release-zip
+      - uses: actions/download-artifact@master
+        with:
+          name: web-release-targz
+      - uses: actions/download-artifact@master
+        with:
+          name: web-release-zip
       - uses: actions/download-artifact@master
         with:
           name: windows-release
@@ -87,5 +108,7 @@ jobs:
         with:
           files: | 
             ./linux-release.zip
+            ./linux-release.tar.gz
             ./web-release.zip
+            ./web-release.tar.gz
             ./windows-release.zip

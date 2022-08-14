@@ -7,21 +7,32 @@ on:
 
 jobs:
   first:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - run: echo hello > artifact1.txt
+      - run: mkdir folder
+      - run: echo hello > ./folder/artifact1.txt
+      - run: echo hello > ./folder/artifact2.txt
+      - run: tar.exe -a -c -f win.zip folder
       - uses: actions/upload-artifact@v3
         with:
           name: first
-          path: artifact1.txt
+          path: win.zip
   second:
     runs-on: ubuntu-latest
     steps:
-      - run: echo world > artifact2.txt
+      - run: mkdir folder
+      - run: echo world > ./folder/artifact1.txt
+      - run: echo world > ./folder/artifact2.txt
+      - run: tar -cvzf second.tar.gz folder
+      - run: zip -r third.zip folder
       - uses: actions/upload-artifact@v3
         with:
           name: second
-          path: artifact2.txt
+          path: second.tar.gz
+      - uses: actions/upload-artifact@v3
+        with:
+          name: third
+          path: third.zip
   upload:
     runs-on: ubuntu-latest
     needs: [first, second]
@@ -32,14 +43,18 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: second
+      - uses: actions/download-artifact@master
+        with:
+          name: third
       - name: Display structure of downloaded files
         run: ls -R
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: | 
-            ./artifact1.txt
-            ./artifact2.txt
+            ./second.tar.gz
+            ./win.zip
+            ./third.zip
 
 
           
